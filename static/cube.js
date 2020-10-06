@@ -16,6 +16,7 @@
 
     this.roamX = this.navigator.randCoOrd();
     this.roamY = this.navigator.randCoOrd();
+    this.size = box.size;
 
     this.ray = false;
 

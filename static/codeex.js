@@ -84,6 +84,19 @@ function check_if_collision(drone_pos, obstacle_pos, tolerance) {
   }
 }
 
+function goto(circle, goal_x, goal_y, speed) {
+    //speed is units pr frame
+    var dist_x = (goal_x-circles[circles.length-1].line.position.x);
+    var dist_y = (goal_y-circles[circles.length-1].line.position.y);
+    var norm = Math.sqrt(dist_x*dist_x+ dist_y*dist_y);
+    var velocity_x = dist_x/norm * speed;
+    var velocity_y = dist_y/norm * speed;
+
+    circles[circles.length-1].roamX = velocity_x;
+    circles[circles.length-1].roamY = velocity_y;
+
+
+}
 
 function animation(){
   let collission = false;
@@ -115,10 +128,16 @@ function animation(){
         circles[circles.length-1].roamY = -circles[circles.length-1].roamY;
       }
     }
-    // console.log(collission)
-    // console.log(check_if_collision(circles[0],circles[1],5))
-    // console.log(circles)
-  
+
+    // Now you have to check if it has reached its goal. If yes, then give it a new goal. 
+    // Do not hardcode the goal position like bellow, but make a function that takes the drone position and the box and returns a list of goal positoins that should be visited in that order. 
+    // Note that this overrides the collision avoidance. How to make the collision avoidance work again?
+    // Also, the drone flies all the way to the corner of the box. How to make it keep  a distance of say 2m to  it?
+
+    var goal_x = circles[0].line.position.x + circles[0].size/2;
+    var goal_y = circles[0].line.position.y - circles[0].size/2
+    goto(circles[circles.length-1], goal_x, goal_y, 1);
+
   requestAnimationFrame(animation);
 }
 
