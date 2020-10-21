@@ -23,8 +23,8 @@
   }
 
   spin(){
-    this.line.rotation.x += 0.09;
-    this.line.rotation.y += 0.09;
+    this.line.rotation.x += 0.00;
+    this.line.rotation.y += 0.00;
   }
 
   roam(){
